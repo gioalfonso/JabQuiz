@@ -50,15 +50,16 @@ const App = (() => {
     // render question
     const renderQuestion = _ => {
         const question = quiz.getCurrentQuestion().question;
-        setValue(quizQuestionEl, question);        
+        // setValue(quizQuestionEl, question);
     }
+        
 
     // render Choices Element
-    const renderChoicesElements = _ => {        
+    const renderChoicesElements = _ => {
         let markup = "";
         const currentChoices = quiz.getCurrentQuestion().choices;
         currentChoices.forEach((elem, index) => {
-            console.log(elem)
+            // console.log(elem)
             markup += `
                 <li class="jabquiz__choice">
                 <input type="radio" name="choice" class="jabquiz__input" id="choice${index}">
@@ -66,15 +67,15 @@ const App = (() => {
                     <i></i>
                     Martin Luther King
                 </label>
-                </li>            
+                </li>
             `
         });
-        
-        // choicesEl.innerHTML = markup;        
+
+        // choicesEl.innerHTML = markup;
     }
 
     renderChoicesElements();
-    
+
     // rendering components
     const renderAll = _ => {
         if (quiz.hasEnded()) {

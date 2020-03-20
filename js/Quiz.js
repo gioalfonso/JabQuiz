@@ -27,6 +27,6 @@ Quiz.prototype.guess = function(userGuess) {
     if (currentQuestion.isCorrect(userGuess)) {
                      //   └ this method is in Quiz.js line 8
         this.score++ // increase score by 1 in line 3 above
-    }              
+    }
     this.nextIndex(); // go to next question regardless ans is correct or no        
 }
