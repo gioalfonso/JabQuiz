@@ -6,8 +6,8 @@ const App = (() => {
     const quizEl = document.querySelector(".jabquiz");
     const quizQuestionEl = document.querySelector(".jabquiz__question");
     const trackerEl = document.querySelector(".jabquiz__tracker");
-    const taglingEl = document.querySelector('jabquiz__tagline');
-    const choicesEl = document.querySelector("jabquiz__choices");
+    const taglingEl = document.querySelector(".jabquiz__tagline");
+    const choicesEl = document.querySelector(".jabquiz__choices");
     const progressInnerEl = document.querySelector("progress__inner");
     const nextButtonEl = document.querySelector(".progress__inner");
     const restartButtonEl = document.querySelector(".restart");
@@ -50,31 +50,29 @@ const App = (() => {
     // render question
     const renderQuestion = _ => {
         const question = quiz.getCurrentQuestion().question;
-        // setValue(quizQuestionEl, question);
+        setValue(quizQuestionEl, question);
     }
-        
 
+ 
     // render Choices Element
     const renderChoicesElements = _ => {
         let markup = "";
         const currentChoices = quiz.getCurrentQuestion().choices;
         currentChoices.forEach((elem, index) => {
-            // console.log(elem)
             markup += `
                 <li class="jabquiz__choice">
                 <input type="radio" name="choice" class="jabquiz__input" id="choice${index}">
                 <label for="choice${index}" class="jabquiz__label">
                     <i></i>
-                    Martin Luther King
+                    <span>${elem}</span>
                 </label>
                 </li>
             `
         });
 
-        // choicesEl.innerHTML = markup;
+        setValue(choicesEl, markup);
     }
 
-    renderChoicesElements();
 
     // rendering components
     const renderAll = _ => {
@@ -84,6 +82,8 @@ const App = (() => {
             // 1. Render the question
             renderQuestion();
             // 2. Render the choices elements
+            renderChoicesElements();
+
             // 3. Render tracker
             // 4. Render Progress
         }
