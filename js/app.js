@@ -104,8 +104,6 @@ const App = (() => {
         launch(0, currentWidth);
     }
 
-    renderProgress();
-
     // RENDERING COMPONENTS
     const renderAll = _ => {
         if (quiz.hasEnded()) {
@@ -118,6 +116,7 @@ const App = (() => {
             // 3. Render tracker
             renderTracker();
             // 4. Render Progress
+            renderProgress();
         }
     }
 
