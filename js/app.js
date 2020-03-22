@@ -8,7 +8,7 @@ const App = (() => {
     const trackerEl = document.querySelector(".jabquiz__tracker");
     const taglingEl = document.querySelector(".jabquiz__tagline");
     const choicesEl = document.querySelector(".jabquiz__choices");
-    const progressInnerEl = document.querySelector("progress__inner");
+    const progressInnerEl = document.querySelector(".progress__inner");
     const nextButtonEl = document.querySelector(".progress__inner");
     const restartButtonEl = document.querySelector(".restart");
 
@@ -73,8 +73,40 @@ const App = (() => {
         setValue(choicesEl, markup);
     }
 
+    // render tracker
+    const renderTracker = _ => {
+        const index = quiz.currentIndex;
+        setValue(trackerEl, `${index+1} of ${quiz.questions.length}`);
+    }
 
-    // rendering components
+    // // get percentage
+    const getPercentage = (num1, num2) => {
+        return Math.round((num1/num2) * 100);
+    }
+
+    // launch function
+    const launch = (width, maxPercent) => {
+        let loadingBar = setInterval(function() {
+            if (width > maxPercent) {
+                clearInterval(loadingBar);
+            } else {
+                width++;
+                progressInnerEl.style.width = width + "%";
+            }
+        }, 3)
+    }
+
+    // render progress
+    const renderProgress = _ => {
+        //1. width
+        const currentWidth = getPercentage(quiz.currentIndex, quiz.questions.length);
+        //2. launch(0, width)
+        launch(0, currentWidth);
+    }
+
+    renderProgress();
+
+    // RENDERING COMPONENTS
     const renderAll = _ => {
         if (quiz.hasEnded()) {
             // renderEndScreen
@@ -83,14 +115,18 @@ const App = (() => {
             renderQuestion();
             // 2. Render the choices elements
             renderChoicesElements();
-
             // 3. Render tracker
+            renderTracker();
             // 4. Render Progress
         }
     }
 
+    return {
+        renderAll: renderAll
+    }
 })();
 
+App.renderAll();
 
 
 
