@@ -22,7 +22,7 @@ Quiz.prototype.hasEnded = function() {
 
 // user guessing the answer
 Quiz.prototype.guess = function(userGuess) {
-    const currentQuestion = this.question[this.currentIndex]
+    const currentQuestion = this.questions[this.currentIndex]
                            //  └ same as line 8
     if (currentQuestion.isCorrect(userGuess)) {
                      //   └ this method is in Quiz.js line 8

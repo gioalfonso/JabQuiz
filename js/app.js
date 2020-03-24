@@ -6,10 +6,10 @@ const App = (() => {
     const quizEl = document.querySelector(".jabquiz");
     const quizQuestionEl = document.querySelector(".jabquiz__question");
     const trackerEl = document.querySelector(".jabquiz__tracker");
-    const taglingEl = document.querySelector(".jabquiz__tagline");
+    const taglineEl = document.querySelector(".jabquiz__tagline");
     const choicesEl = document.querySelector(".jabquiz__choices");
     const progressInnerEl = document.querySelector(".progress__inner");
-    const nextButtonEl = document.querySelector(".progress__inner");
+    const nextButtonEl = document.querySelector(".next");
     const restartButtonEl = document.querySelector(".restart");
 
     // create the questions (question.js) and also initialize the quiz
@@ -42,6 +42,27 @@ const App = (() => {
     // initialize quiz
     const quiz = new Quiz([q1, q2, q3, q4, q5]);
 
+// ========================================================================================
+
+    const listeners = _ => {
+        nextButtonEl.addEventListener("click", function() {
+            const selectedRadioElem = document.querySelector('input[name="choice"]:checked');
+            if (selectedRadioElem) {
+                const key = Number(selectedRadioElem.getAttribute("data-order"));
+                quiz.guess(key); // compares user guess to correct answer. look at Quiz object
+                renderAll(); // if user guess is correct renders next set of question
+            }
+        })
+
+        restartButtonEl.addEventListener("click", function() {
+            console.log("restart clicked");
+            
+        })
+
+    }
+
+
+
     // change innerHTML
     const setValue = (elem, value) => {
         elem.innerHTML = value;
@@ -61,7 +82,7 @@ const App = (() => {
         currentChoices.forEach((elem, index) => {
             markup += `
                 <li class="jabquiz__choice">
-                <input type="radio" name="choice" class="jabquiz__input" id="choice${index}">
+                <input type="radio" name="choice" class="jabquiz__input" data-order="${index}" id="choice${index}">
                 <label for="choice${index}" class="jabquiz__label">
                     <i></i>
                     <span>${elem}</span>
@@ -104,10 +125,26 @@ const App = (() => {
         launch(0, currentWidth);
     }
 
+    // end of quiz
+    const renderEndScreen = _ => {
+        setValue(quizQuestionEl, `Great Job!`);
+        setValue(taglineEl, `COMPLETE`);
+        setValue(trackerEl, `Your Score: ${getPercentage(quiz.score, quiz.questions.length)}%`);
+        nextButtonEl.style.opacity = 0;
+        renderProgress();
+    }
+
+
+
+
+
+// =====================================================================================
+
     // RENDERING COMPONENTS
     const renderAll = _ => {
         if (quiz.hasEnded()) {
             // renderEndScreen
+            renderEndScreen();
         } else {
             // 1. Render the question
             renderQuestion();
@@ -121,11 +158,13 @@ const App = (() => {
     }
 
     return {
-        renderAll: renderAll
+        renderAll: renderAll,
+        listeners: listeners
     }
 })();
 
 App.renderAll();
+App.listeners();
 
 
 
