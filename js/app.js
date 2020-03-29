@@ -44,6 +44,7 @@ const App = (() => {
 
 // ========================================================================================
 
+    // for buttons next and restart
     const listeners = _ => {
         nextButtonEl.addEventListener("click", function() {
             const selectedRadioElem = document.querySelector('input[name="choice"]:checked');
@@ -55,12 +56,16 @@ const App = (() => {
         })
 
         restartButtonEl.addEventListener("click", function() {
-            console.log("restart clicked");
-            
+            // 1. reset the quiz
+            quiz.reset();
+            // 2. renderAll
+            renderAll();
+            // 3. restore the next button
+            nextButtonEl.style.opacity = 1;
+            setValue(taglineEl, `Pick an option below!`);
         })
 
     }
-
 
 
     // change innerHTML

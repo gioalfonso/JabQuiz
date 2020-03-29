@@ -30,3 +30,9 @@ Quiz.prototype.guess = function(userGuess) {
     }
     this.nextIndex(); // go to next question regardless ans is correct or no        
 }
+
+// reset quiz
+Quiz.prototype.reset = function() {
+    this.score = 0;
+    this.currentIndex = 0;
+}
